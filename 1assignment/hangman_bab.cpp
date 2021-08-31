@@ -28,12 +28,12 @@ int checkplease(char word[5], char &guessed)
 {
   int index = 0;
   int bingo = -1;
-
+  //go through the word titan to see if the word guessed is in the array
   for (index=0;index<=5;index++){
     if (guessed==word[index]){
-      bingo=1;
+      bingo=index;
+      word[index] = '*';
     }
-    
   }
   index=0;
   return bingo;
