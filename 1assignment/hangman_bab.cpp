@@ -26,6 +26,8 @@ int main()
       case -1: bingo = countloss(guessed, guess);
       break;
     }
+    cout<<word<<guessed<<'\n';
+    
     if (bingo==2){
       game = false;
       cout<<"Congrats, You've won!\n";
@@ -59,9 +61,22 @@ int checkplease(char word[5], char &guess)
 //this function keeps track of what characters have been guessed correctly and accurately tells the computer when the word has been guessed.
 int verifywinner(char word[5], char &guess)
 {
-  int index = 0;
   int bingo = 1;
-  cout<<word<<"\n";
+  if (word[4]=='*'){
+    bingo = 2;
+  }
+  return bingo;
+}
+// this function will keep trach of incorrect characters guessed and will detect when a user looses
+int countloss(char guessed[5], char&guess)
+{
+  int index = 0;
+  int bingo = -1;
+  guessed[index] = guess;
+  if (guessed[4]!='*'){
+    bingo=3;
+  }
+  index++;
   return bingo;
 }
 
