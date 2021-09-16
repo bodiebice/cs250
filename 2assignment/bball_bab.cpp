@@ -5,6 +5,7 @@ using namespace std;
 const int row_length = 10;
 const int col_length = 7;
 
+void welCome(int&);
 void dataIn(float[row_length][col_length]);
 void dataOut(float[col_length], float [row_length], float&);
 void averageGame(float[row_length][col_length], float [col_length]);
@@ -17,18 +18,31 @@ int main ()
   float ppg[7];
   float ppp[10];
   float appg = 0;
-  float test = 0;
-  cout<<"Welcome to my program."<<endl;
-  dataIn(stats);
-  averageGame(stats, ppg);
-  averagePlayer(stats, ppp);
-  averagePPG(stats, appg);
-  dataOut(ppg,ppp,appg);
+  int welcome = -1;
+
+  welCome(welcome);
+  if (welcome == 1)
+  {
+    dataIn(stats);
+    averageGame(stats, ppg);
+    averagePlayer(stats, ppp);
+    averagePPG(stats, appg);
+    dataOut(ppg,ppp,appg);
+  }
+  
   
   
 
   return 0;
 }
+
+void welCome(int& welcome)
+{
+  cout<<endl<<"Welcome to this program. This program takes in Basketball Stats and will eventually spit out macro stats using your stats. Please"<<endl<<"verify that your text file is named game_data.txt and that your text file does not have any non-integers in it. Thanks - Bodie Bice."<<endl<<" Press 1 to accept or any other character to exit."<<endl;
+  cin>>welcome;
+  return;
+}
+
 
 void dataIn(float stats[row_length][col_length])
 {
@@ -36,6 +50,7 @@ void dataIn(float stats[row_length][col_length])
   inputFile.open("game_data.txt");
   int index = 0, indexy = 0, indexo = 0, count  = 0;
   float intake[70];
+  
   for (indexo=0; indexo<70; indexo++)
   {
     inputFile >> intake[indexo];
@@ -65,7 +80,6 @@ void averageGame(float stats[row_length][col_length], float ppg[col_length])
   for (index = 0; index<col_length; index++)
   {
     tally = 0;
-    
     counter = 0;
     for (indexy = 0; indexy<row_length; indexy++)
     {
@@ -128,7 +142,7 @@ void dataOut(float ppg [col_length], float ppp [row_length], float &appg)
   int index = 0;
   int gamecount = 0;
   bool done = false;
-  cout<<"Welcome to our program: Enter 1 for the average points scored per game, 2 for the average points a player scored over a length of games \n";
+  cout<<endl<<"Enter 1 for the average points scored per game, 2 for the average points a player scored over a length of games \n";
   cout<<"or 3 for the average points all players scored over the length of games indicated on the data file entered. Enter 4 to end program. \n "<<endl;
   while (done==false)
   {
