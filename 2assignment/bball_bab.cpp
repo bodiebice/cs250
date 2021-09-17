@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
+#include <limits>
+
 using namespace std;
 
 const int row_length = 10;
@@ -40,6 +43,12 @@ void welCome(int& welcome)
 {
   cout<<endl<<"Welcome to this program. This program takes in Basketball Stats and will eventually spit out macro stats using your stats. Please"<<endl<<"verify that your text file is named game_data.txt and that your text file does not have any non-integers in it. Thanks - Bodie Bice."<<endl<<" Press 1 to accept or any other character to exit."<<endl;
   cin>>welcome;
+  while (cin.fail() == true)
+    {
+      cin.clear();
+      cin.ignore(std::numeric_limits<int>::max(),'\n');
+      cin>>welcome;
+    }
   return;
 }
 
@@ -142,11 +151,18 @@ void dataOut(float ppg [col_length], float ppp [row_length], float &appg)
   int index = 0;
   int gamecount = 0;
   bool done = false;
+  cout.precision(3);
   cout<<endl<<"Enter 1 for the average points scored per game, 2 for the average points a player scored over a length of games \n";
   cout<<"or 3 for the average points all players scored over the length of games indicated on the data file entered. Enter 4 to end program. \n "<<endl;
   while (done==false)
   {
     cin>> menu;
+    while (cin.fail() == true)
+    {
+      cin.clear();
+      cin.ignore(std::numeric_limits<int>::max(),'\n');
+      cin>>menu;
+    }
     switch (menu) {
       case 1:
         gamecount = 0;
