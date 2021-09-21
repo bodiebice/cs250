@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 #include <istream>
+#include <limits>
 using namespace std;
 
 // this col_width var will be however long the account numbers for this institution will be, assuming that they're constant.
@@ -66,7 +67,7 @@ int arraySize()
   inputFile.open("accounts.txt");
   inputFile>>rows;
   cout<<rows<<endl;
-  
+  inputFile.close();
 
   return rows;
 
@@ -80,8 +81,9 @@ void dataIn(int datamain[][col_width], int& rows)
   int placeholder, index = 0, indexio = 0, indexia = 0, counter = 0;
   int holddata[10000];
   inputFile.open("accounts.txt");
-  for (indexia = 0; indexia>10000; indexia++)
+  for (indexia = 0; indexia<10; indexia++)
   {
+   
     inputFile>>placeholder;
     cout<<placeholder;
     if (placeholder < 0)
