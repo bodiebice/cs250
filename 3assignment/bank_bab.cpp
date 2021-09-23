@@ -6,14 +6,14 @@
 using namespace std;
 
 // this col_width var will be however long the account numbers for this institution will be, assuming that they're constant.
-const int col_width = 7;
-
+static int rows = 0;
+int* rptr = &rows;
 
 void welcome(int&);
-int arraySize();
-void dataIn(int[][col_width], int&);
-//void dataSort(int[][col_width]);
-//void dataSearch(int[][col_width]);
+void arraySize(int*);
+void dataIn(int*, int*);
+void dataSort(int*);
+//void dataSearch(int[]);
 //void dataPrint(int&,int&);
 
 int main()
@@ -22,10 +22,12 @@ int main()
   welcome(initialize);
   if (initialize==1)
   {
-    int rows = arraySize();
-    int datamain[rows][col_width];
-    dataIn(datamain,rows);
-    //dataSort(datamain);
+    arraySize(rptr);
+    int datamain[*rptr];
+    int *dptr = datamain;
+
+    dataIn(rptr, dptr);
+    dataSort(dptr);
     //dataSearch(datamain);
   }
 
@@ -60,47 +62,46 @@ void welcome(int &initialize)
 // and inputs that into a global constant varaible titled 'rows'        //
 // ******************************************************************   //
 
-int arraySize()
+void arraySize(int *rptr)
 {
   int rows = 0;
   ifstream inputFile;
   inputFile.open("accounts.txt");
-  inputFile>>rows;
-  cout<<rows<<endl;
+  inputFile>>*rptr;
+  cout<<*rptr<<endl;
   inputFile.close();
 
-  return rows;
+  return;
 
 }
 
+// ********************************************************************   //
+// this function will take the integers in accounts.txt and through       //
+// a pointer will store it inside of datamain inside of main. datamin is  //
+// made using rows before it as how big the array is.                     //
+// ********************************************************************   //
 
-void dataIn(int datamain[][col_width], int& rows)
+void dataIn(int *rptr, int *dptr)
 {
+  
   cout<<"Hi World"<<endl;
   ifstream inputFile;
-  int placeholder, index = 0, indexio = 0, indexia = 0, counter = 0;
-  int holddata[10000];
+  int placeholder, index = 0, indexio = 0,counter = 0;
+  int holddata[rows];
   inputFile.open("accounts.txt");
-  for (indexia = 0; indexia<10; indexia++)
-  {
-   
-    inputFile>>placeholder;
-    cout<<placeholder;
-    if (placeholder < 0)
-    {
-      holddata[indexia] = placeholder;
-    }
-    cout<<holddata[indexia]<<" ";
-  }
+  inputFile>>counter;
+  //this for loop is to 
   for (index = 0; index<rows; index++)
   {
-    for (indexio = 0; indexio<col_width; indexio++)
-    {
-      datamain[index][indexio] = holddata[counter];
-      counter++;
-    }
+    inputFile>>dptr[index];
+    cout<<dptr[index]<<endl;
+    
   }
-  
   return;
 }
 
+void dataSort(int *dptr)
+{
+  
+  return;
+}
