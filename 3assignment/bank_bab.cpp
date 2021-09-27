@@ -34,7 +34,7 @@ int main()
     dataSort(dptr);
     //  below is my extremely lazy check for if the inital sort function worked on the data provided for the test.
     //  cout<<dptr[0]<<endl<<dptr[1]<<endl<<dptr[2]<<endl<<dptr[3]<<endl<<dptr[4]<<endl;
-    if (done == false)
+    while (done == false)
       {
         dataQuery(dptr);
       }
@@ -111,6 +111,11 @@ void dataIn(int *rptr, int *dptr)
   return;
 }
 
+// ********************************************************************      //
+// this function will sort the integers inside of the array in ascending     //
+// order.                                                                    //
+// ********************************************************************      //
+
 void dataSort(int *dptr)
 {
   int minindex, minvalue;
@@ -136,6 +141,8 @@ void dataSort(int *dptr)
   return;
 }
 
+// this is a small part of the sort function to swap around the values.
+
 void dataSwap(int* a, int* b)
 {
   int temp = *a;
@@ -143,6 +150,12 @@ void dataSwap(int* a, int* b)
   *b = temp;
   return;
 }
+
+// ********************************************************************   //
+// this function will prompt the user to enter a number and then execute  //
+// the necessary steps in different functions to find if the value is in  //
+// the array.                                                             //
+// ********************************************************************   //
 
 void dataQuery(int* dptr)
 {
@@ -171,7 +184,13 @@ void dataQuery(int* dptr)
   return;
 }
 
-void datasearch(int* dptr,int* rptr, int* sptr, int* fptr)
+// ********************************************************************   //
+// this function will take the sorted values and the value being searched //
+// for and will then look for that value in the array. It will return a   //
+// value to dataQuery based on the results of that search.                //
+// ********************************************************************   //
+
+void dataSearch(int* dptr,int* rptr, int* sptr, int* fptr)
 
 {
   int first = 0;
@@ -183,12 +202,12 @@ void datasearch(int* dptr,int* rptr, int* sptr, int* fptr)
   while (!found && first<=last)
   {
     middle = (first+last)/2;
-    if (dptr[middle]== *sptr)
+    if (dptr[middle] == *sptr)
     {
       found = true;
       position = middle;
     }
-    else if(dptr[middle]>middle)
+    else if(dptr[middle]>*sptr)
     {
       last = middle-1;
     }
@@ -210,14 +229,24 @@ void datasearch(int* dptr,int* rptr, int* sptr, int* fptr)
   return;
 }
 
+// ********************************************************************   //
+// this function will take a couple of codes that dataQuery will send out //
+// and print a result based on that code.                                 //
+// ********************************************************************   //
+
 void dataPrint(int* sptr, int* fptr)
 {
   if (*fptr ==1)
   {
     cout<<"The number you entered is a valid account number"<<endl;
   }
+  else if (*sptr == -1)
+  {
+    return;
+  }
   else
   {
     cout<<"The account number you entered is not in our system, try again?"<<endl;
   }
+  return;
 }
