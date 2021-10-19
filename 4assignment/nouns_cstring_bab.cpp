@@ -58,9 +58,13 @@ void stringIn(char* aptr, const int* size)
     cin.getline(aptr, *size);
     for (int indexio = 0; indexio<strlen(aptr); indexio++)
     {
-      if (isalpha(aptr[indexio]))
+      if (isalpha(aptr[indexio]) == false)
       {
         messed = true;
+      }
+      else
+      {
+        messed = false;
       }
     }
   }

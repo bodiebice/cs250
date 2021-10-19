@@ -36,11 +36,12 @@ int main()
 void stringIn(string& word, const int* size )
 {
   bool messed = false;
+  string verify = "@";
   cout<<"Please enter a word: ";
   getline(cin, word);
   for (int index = 0; index<word.length(); index++)
   {
-    if (isalpha(size[index]) == false )
+    if (word[index] < verify[0] )
     {
       messed = true;
     }
@@ -51,11 +52,15 @@ void stringIn(string& word, const int* size )
   {
     cout<<"Error: Non Alphabetic Character Detected. Please Try Again.";
     getline(cin,word);
-    for (int index = 0; index<word.length(); index++)
+    for (int indexio = 0; indexio<word.length(); indexio++)
     {
-      if (isalpha(size[index]) == false )
+      if (word[indexio] < verify[0] )
       {
         messed = true;
+      }
+      else
+      {
+        messed  = false;
       }
     }  
   }
