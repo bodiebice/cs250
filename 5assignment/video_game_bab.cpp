@@ -2,6 +2,8 @@
 #include <string>
 #include <cctype>
 #include <iomanip>
+#include <limits>
+#include <array>
 using namespace std;
 
 //the following code is my enumerated type and structure that the program request file manages
@@ -13,38 +15,39 @@ struct videogame
   int rank;
   double time;
 };
+
 //prototypes
-void initializeData(videogame*);
-void userMenu(videogame*);
-void menuOne(videogame*);
-void videogameSort(videogame*);
+void initializeData(videogame[]);
+void userMenu(videogame[]);
+void menuOne(videogame[]);
+void videogameSort(videogame[]);
 void dataSwap(videogame*, videogame*);
-void menuTwo(videogame*);
-void menuThree(videogame*);
-void menuFour(videogame*);
+void menuTwo(videogame[]);
+void menuThree(videogame[]);
+void menuFour(videogame[]);
 
 int main()
 {
-  videogame* vptr;
-  initializeData(vptr);
-  userMenu(vptr);
+  
+  videogame library[5];
+  initializeData(library);
+  userMenu(library);
   return 0;
 }
 
-void initializeData(videogame* vptr)
+void initializeData(videogame library[])
 {
-  videogame library[5] = {
-    {"League of Legends",Strategy,3,9.50},
-    {"Team Fortress 2",FPS,5,16.75},
-    {"Ultima 7: The Black Gate",RolePlay,1,4.25},
-    {"Halo",FPS,2,.75},
-    {"Command and Conquer: Red Alert",Strategy,4,6.75}
-  };
-  vptr = library;
+  
+  library[0] = {"League of Legends",Strategy,3,9.50};
+  library[1] = {"Team Fortress 2",FPS,5,16.75};
+  library[2] = {"Ultima 7: The Black Gate",RolePlay,1,4.25};
+  library[3] = {"Halo",FPS,2,.75};
+  library[4] = {"Command and Conquer: Red Alert",Strategy,4,6.75};
+  
   return;
 }
 
-void userMenu(videogame* vptr)
+void userMenu(videogame library[])
 {
   int menu = -1;
   bool cash = false;
@@ -64,19 +67,19 @@ void userMenu(videogame* vptr)
   {
     if (menu==1)
     {
-      menuOne(vptr);
+      menuOne(library);
     }
     else if (menu==2)
     {
-      menuTwo(vptr);
+      menuTwo(library);
     }
     else if (menu==3)
     {
-      menuThree(vptr);
+      menuThree(library);
     }
     else if (menu==4)
     {
-      menuFour(vptr);
+      menuFour(library);
     }
     else if (menu == -1)
     {
@@ -98,14 +101,14 @@ void userMenu(videogame* vptr)
   return;
 }
 
-void menuOne(videogame* vptr)
+void menuOne(videogame library[])
 {
-  videogameSort(vptr);
-  string placeholder[sizeof(vptr)];
-  string toprint[(sizeof(vptr))];
-  for (int index = 0; index<sizeof(vptr); index++)
+  videogameSort(library);
+  string placeholder[5];
+  string toprint[5];
+  for (int index = 0; index<5; index++)
   {
-    switch (vptr[index].gameType)
+    switch ((library[index]).gameType)
     {
     case FPS : placeholder[index] = "FPS";
     break;
@@ -116,12 +119,12 @@ void menuOne(videogame* vptr)
     }
 
   }
-  for (int indexio = 0; indexio<sizeof(vptr); indexio++)
+  for (int indexio = 0; indexio<5; indexio++)
   {
-    toprint[indexio].append(vptr[indexio].title);
+    toprint[indexio].append(library[indexio].title);
     toprint[indexio].append(placeholder[indexio]);
-    toprint[indexio].append(to_string(vptr[indexio].rank));
-    toprint[indexio].append(to_string (vptr[indexio].time));
+    toprint[indexio].append(to_string(library[indexio].rank));
+    toprint[indexio].append(to_string (library[indexio].time));
 
     cout<<toprint[indexio]<<endl;
   }
@@ -129,26 +132,26 @@ void menuOne(videogame* vptr)
 }
 
 
-void videogameSort(videogame* vptr)
+void videogameSort(videogame library[])
 {
   int minindex, minvalue;
-  int rows = sizeof(vptr);
+  int rows = 5;
 
   for (int start = 0; start<(rows-1);start++)
   {
     minindex = start;
-    minvalue = vptr[start].rank;
+    minvalue = (library[start]).rank;
     for (int index = start + 1; index < rows; index++)
       {
-        if (vptr[index].rank < minvalue)
+        if (library[index].rank < minvalue)
           {
-            minvalue = vptr[index].rank;
+            minvalue = (library[index]).rank;
             minindex = index;
           }
     
     }
-    videogame* ptr1 = &vptr[minindex];
-    videogame* ptr2 = &vptr[start];
+    videogame* ptr1 = &library[minindex];
+    videogame* ptr2 = &library[start];
 
     dataSwap(ptr1,ptr2);
   } 
@@ -163,7 +166,7 @@ void dataSwap(videogame* a, videogame* b)
   return;
 }
 
-void menuTwo(videogame* vptr)
+void menuTwo(videogame library[])
 {
   int bingo = -1;
   bool messed;
@@ -198,15 +201,15 @@ void menuTwo(videogame* vptr)
       }
     }
   }
-  for (int indexia = 0; indexia<sizeof(vptr); indexia++)
+  for (int indexia = 0; indexia<5; indexia++)
   {
     int found;
-    found = query.find(vptr[indexia].title);
-    if (found!=string::npos)
+    found = query.find(library[indexia].title);
+    if (found==0)
     {
       bingo = indexia;
     }
-    else if (query.compare(vptr[indexia].title) > 0)
+    else if (query.compare(library[indexia].title) > 0)
     {
       bingo = indexia;
     }
@@ -217,7 +220,7 @@ void menuTwo(videogame* vptr)
   }
   string placeholder;
   
-  switch (vptr[bingo].gameType)
+  switch (library[bingo].gameType)
   {
   case FPS : placeholder = "FPS";
   break;
@@ -229,23 +232,24 @@ void menuTwo(videogame* vptr)
 
   string toprint;
 
-  toprint.append(vptr[bingo].title);
+  toprint.append(library[bingo].title);
   toprint.append(placeholder);
-  toprint.append(to_string(vptr[bingo].rank));
-  toprint.append(to_string (vptr[bingo].time));
+  toprint.append(to_string(library[bingo].rank));
+  toprint.append(to_string (library[bingo].time));
 
+  cout<<toprint<<endl;
 
   return;
 }
 
-void menuThree(videogame* vptr)
+void menuThree(videogame* library)
 {
 
   double bucket;
 
-  for (int index = 0; index<sizeof(vptr); index++)
+  for (int index = 0; index<sizeof(library); index++)
   {
-    bucket = bucket + vptr[index].time;
+    bucket = bucket + library[index].time;
   }
 
   cout<<"The total time spent on all games is ";
@@ -255,13 +259,13 @@ void menuThree(videogame* vptr)
   return;
 }
 
-void menuFour(videogame* vptr)
+void menuFour(videogame library[])
 {
   int counter, bucket;
   double total;
-  for (int index = 0; index<sizeof(vptr); index++)
+  for (int index = 0; index<5; index++)
   {
-    bucket = bucket + vptr[index].rank;
+    bucket = bucket + library[index].rank;
     counter++;
   }
   total = bucket / counter;
