@@ -34,11 +34,11 @@ int main()
 void fileCreate()
 {
   fstream dataFile;
-  dataFile.open("games.dat", ios::in | ios::out | ios::binary);
+  dataFile.open("game.dat", ios::in | ios::out | ios::binary);
   if (!dataFile)
   {
     dataFile.clear();
-    dataFile.open("games.dat", ios::out);
+    dataFile.open("game.dat", ios::out);
   }
   dataFile.close();
   return;
