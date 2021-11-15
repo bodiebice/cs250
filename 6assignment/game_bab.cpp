@@ -50,8 +50,10 @@ void programMenu()
   bool clip = false;
   cout<<"Welcome to this program. Please press 1 to enter new entry, 2 to see all entries, 3 to see total time played, and 4 to see the average of all games played."<<endl;
   cout<<"Press 6 to exit program"<<endl;
-  while (clip ==false)
+  while (!clip)
   {
+    cout<<" Please press 1 to enter new entry, 2 to see all entries, 3 to see total time played, and 4 to see the average of all games played."<<endl;
+    cout<<"Press 6 to exit program"<<endl;
     cin>>menu;
     switch (menu)
     {
@@ -75,7 +77,7 @@ void programMenu()
 void menuOne()
 {
   fstream dataFile;
-  dataFile.open("game.dat", ios::out | ios::binary);
+  dataFile.open("games.dat", ios::out | ios::binary);
 
   videogame placeholder;
   int placeholderenum;
@@ -131,16 +133,56 @@ void menuOne()
 
 void menuTwo()
 {
+  fstream dataFile;
+  dataFile.open("games.dat", ios::out | ios::binary);
+  videogame placeholder;
 
+  while (!dataFile.eof())
+  {
+    dataFile.read(reinterpret_cast<char *>(&placeholder), sizeof(placeholder));
 
-
-
-
+    cout<<"Title: ";
+    cout<<placeholder.title<<endl;
+    cout<<"Genre: ";
+    switch (placeholder.gameType)
+    {
+      case 0: cout<<"FPS"<<endl;
+      break;
+      case 1: cout<<"Strategy"<<endl;
+      break;
+      case 2: cout<<"RolePlay"<<endl;
+      break;
+    }
+    cout<<"Rank: ";
+    cout<<placeholder.rank;
+    cout<<"Time Played: ";
+    cout<<fixed<<setprecision(2)<<placeholder.time;
+  }
+  dataFile.close();
   return;
 }
 
 void menuThree()
 {
+  fstream dataFile;
+  dataFile.open("games.dat", ios::out | ios::binary);
+  int counter, tally;
+  double finaly;
+  videogame placeholder;
+  dataFile.read(reinterpret_cast<char *>(&placeholder), sizeof(placeholder));
+
+  while(!dataFile.eof())
+  {
+    counter = placeholder.rank;
+    tally++;
+
+    dataFile.read(reinterpret_cast<char *>(&placeholder), sizeof(placeholder));
+  }
+
+  finaly = counter/tally;
+  cout<<"The average rank of all games you have is: ";
+  cout<<finaly<<endl;
+  dataFile.close();
   return;
 }
 
