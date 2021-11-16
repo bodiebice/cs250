@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "Loan.h"
 using namespace std;
 
@@ -50,10 +51,23 @@ double Loan::getYears()const
 double Loan::getPayment()const
 {
   double payment;
-  int term;
-  term = (1+rate/12)^(12*years);
+  double term;
+  double a = (1+rate/12);
+  double b = (12*years);
+  term = pow (a,b);
   payment = (amount*(rate/12)*term) / term - 1;
   return payment;
+}
+
+double Loan::getTotalPaid()const
+{
+  double payment,term,totalpaid;
+  double a = (1+rate/12);
+  double b = (12*years);
+  term = pow (a,b);
+  payment = (amount*(rate/12)*term) / term - 1;
+  totalpaid = payment*(years*12);
+  return totalpaid;
 }
 
 
