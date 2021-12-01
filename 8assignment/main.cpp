@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
   Intlist test1;
-  double test;
+  int test;
 
   test1.appendNode(4);
   test1.appendNode(5);
@@ -22,7 +22,7 @@ int main()
   test2.deleteNode(5);
   test = test2.sumList();
   cout<<test<<endl;
-  //test2.~Intlist();
+  test2.~Intlist();
   //test1.~Intlist();
 
   return 0;

@@ -1,49 +1,26 @@
 #include <iostream>
-#include <iomanip>
 #include "IntList.h"
 using namespace std;
 
+//basic constructor, makes the head initialized to nothing
 Intlist::Intlist()
 {
-  head = nullptr;
+  head = NULL;
 }
-
+//constructor that copies over a totally seperate Intlist object into the new object.
 Intlist::Intlist(Intlist& a)
 {
-  listNode *nodePtra;
-  listNode *newNode;
-  listNode *nodePtr;
-
-  nodePtra = a.head;
-  double ab;
-  while (nodePtra != nullptr)
-  {
-    nodePtra = nodePtra->next;
-    newNode = nodePtra;
-  
-    if (!head)
-    {
-      head = newNode;
-      
-    }
-    else
-    {
-      nodePtr=head;
-      while(nodePtr->next)
-        nodePtr=nodePtr->next;
-    
-      nodePtr->next = newNode;
-    } 
-  }
+  head = a.head;
 }
-
-void Intlist::appendNode(double a)
+//this appends nodes, or it takes a value and puts it into a new node at the end of the linked list of nodes
+void Intlist::appendNode(int a)
 {
-  listNode *newNode;
-  listNode *nodePtr;
+  listNode *newNode = NULL;
+  listNode *nodePtr = NULL;
 
   newNode = new listNode;
   newNode->value = a;
+  newNode->next = NULL;
 
   if (!head)
   {
@@ -58,12 +35,12 @@ void Intlist::appendNode(double a)
     nodePtr->next = newNode;
   } 
 }
-
-void Intlist::insertNode(double a)
+// this will insert a node (when the linked list is sorted) numerically in order.
+void Intlist::insertNode(int a)
 {
-  listNode *newNode;
-  listNode *nodePtr;
-  listNode *previousNode = nullptr;
+  listNode *newNode = NULL;
+  listNode *nodePtr = NULL;
+  listNode *previousNode = NULL;
 
   newNode = new listNode;
   newNode->value = a;
@@ -71,18 +48,18 @@ void Intlist::insertNode(double a)
   if (!head)
   {
     head = newNode;
-    newNode->next = nullptr;
+    newNode->next = NULL;
   }
   else
   {
     nodePtr = head;
-    previousNode = nullptr;
-    while (nodePtr != nullptr && nodePtr->value < a)
+    previousNode = NULL;
+    while (nodePtr != NULL && nodePtr->value < a)
     {
       previousNode = nodePtr;
       nodePtr = nodePtr->next;
     }
-    if (previousNode == nullptr)
+    if (previousNode == NULL)
     {
       head = newNode;
       newNode->next = nodePtr;
@@ -94,14 +71,15 @@ void Intlist::insertNode(double a)
     }
   }
 }
-
-void Intlist::deleteNode(double a)
+//this will search a list and delete a node specified by the double a that is put into
+void Intlist::deleteNode(int a)
 {
-  listNode *nodePtr;
-  listNode *previousNode;
+  listNode *nodePtr = NULL;
+  listNode *previousNode = NULL;
 
   if(!head)
     return;
+
   if (head->value == a)
   {
     nodePtr = head->next;
@@ -112,11 +90,12 @@ void Intlist::deleteNode(double a)
   {
     nodePtr = head;
     
-    while (nodePtr != nullptr && nodePtr->value != a)
+    while (nodePtr != NULL && nodePtr->value != a)
     {
       previousNode = nodePtr;
       nodePtr = nodePtr->next;
     }
+
     if (nodePtr)
     {
       previousNode->next = nodePtr->next;
@@ -125,9 +104,9 @@ void Intlist::deleteNode(double a)
   }
 }
 
-void Intlist::displayList()
+void Intlist::displayList() const
 {
-  listNode *nodePtr;
+  listNode *nodePtr = NULL;
   nodePtr = head;
   cout<<"Here are the values in this linked list"<<endl;
   while (nodePtr)
@@ -137,11 +116,11 @@ void Intlist::displayList()
   }
 }
 
-double Intlist::sumList()
+int Intlist::sumList()
 {
-  listNode *nodePtr;
+  listNode *nodePtr = NULL;
   nodePtr = head;
-  double sum;
+  int sum = 0;
 
   while(nodePtr)
   {
@@ -153,12 +132,12 @@ double Intlist::sumList()
 
 Intlist::~Intlist()
 {
-  listNode *nodePtr;
-  listNode *nextNode;
+  listNode *nodePtr = NULL;
+  listNode *nextNode = NULL;
 
   nodePtr = head;
 
-  while (nodePtr != nullptr)
+  while (nodePtr != NULL)
   {
     nextNode = nodePtr->next;
     delete nodePtr;
